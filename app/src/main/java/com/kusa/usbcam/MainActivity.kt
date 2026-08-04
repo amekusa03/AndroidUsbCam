@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var zoomBar: SeekBar
     private lateinit var cameraExecutor: ExecutorService
     private var mjpegServer: MjpegServer? = null
+    private var audioServer: AudioServer? = null
     private var isStreaming = false
     private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var camera: Camera? = null
@@ -140,17 +141,23 @@ class MainActivity : AppCompatActivity() {
         mjpegServer = MjpegServer(8080)
         mjpegServer?.rotation = currentRotation
         mjpegServer?.start()
+
+        audioServer = AudioServer(8081)
+        audioServer?.start()
+
         isStreaming = true
-        statusText.text = "Server: Running on port 8080"
-        Toast.makeText(this, "Server started", Toast.LENGTH_SHORT).show()
+        statusText.text = "Server: Running (Video: 8080, Audio: 8081)"
+        Toast.makeText(this, "Servers started", Toast.LENGTH_SHORT).show()
     }
 
     private fun stopServer() {
         isStreaming = false
         mjpegServer?.stop()
         mjpegServer = null
+        audioServer?.stop()
+        audioServer = null
         statusText.text = "Server: Stopped"
-        Toast.makeText(this, "Server stopped", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Servers stopped", Toast.LENGTH_SHORT).show()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -161,6 +168,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         cameraExecutor.shutdown()
         mjpegServer?.stop()
+        audioServer?.stop()
     }
 
     override fun onRequestPermissionsResult(
@@ -180,6 +188,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "UsbCAM"
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO
+        )
     }
 }
