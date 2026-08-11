@@ -19,6 +19,9 @@ build/
 .idea/caches
 .idea/modules.xml
 .idea/navEditor.xml
+/.artifacts/
+.artifacts/
+.artifact/
 
 # Local configuration
 local.properties
