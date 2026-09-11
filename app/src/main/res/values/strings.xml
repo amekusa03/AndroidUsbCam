@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">UsbCAM</string>
+    <string name="start_server">Start Server</string>
+    <string name="stop_server">Stop Server</string>
+    <string name="status_running">Server: Running (Video: %1$d, Audio: %2$d)</string>
+    <string name="status_stopped">Server: Stopped</string>
+    <string name="toast_rotation">Rotation: %1$d°</string>
+    <string name="toast_servers_started">Servers started</string>
+    <string name="toast_servers_stopped">Servers stopped</string>
+    <string name="toast_permissions_not_granted">Permissions not granted by the user.</string>
+    <string name="content_description_rotate_video">Rotate Video</string>
+    <string name="content_description_switch_camera">Switch Camera</string>
 </resources>

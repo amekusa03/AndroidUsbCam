@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         cameraRotate.setOnClickListener {
             currentRotation = (currentRotation + 90) % 360
             mjpegServer?.rotation = currentRotation
-            Toast.makeText(this, "Rotation: $currentRotation°", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_rotation, currentRotation), Toast.LENGTH_SHORT).show()
         }
 
         zoomBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -146,8 +146,8 @@ class MainActivity : AppCompatActivity() {
         audioServer?.start()
 
         isStreaming = true
-        statusText.text = "Server: Running (Video: 8080, Audio: 8081)"
-        Toast.makeText(this, "Servers started", Toast.LENGTH_SHORT).show()
+        statusText.text = getString(R.string.status_running, 8080, 8081)
+        Toast.makeText(this, getString(R.string.toast_servers_started), Toast.LENGTH_SHORT).show()
     }
 
     private fun stopServer() {
@@ -156,8 +156,8 @@ class MainActivity : AppCompatActivity() {
         mjpegServer = null
         audioServer?.stop()
         audioServer = null
-        statusText.text = "Server: Stopped"
-        Toast.makeText(this, "Servers stopped", Toast.LENGTH_SHORT).show()
+        statusText.text = getString(R.string.status_stopped)
+        Toast.makeText(this, getString(R.string.toast_servers_stopped), Toast.LENGTH_SHORT).show()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_permissions_not_granted), Toast.LENGTH_SHORT).show()
                 finish()
             }
         }

@@ -1,48 +1,50 @@
 # UsbCAM - Android Camera & Mic as USB Webcam for Ubuntu
 
-Androidデバイスのカメラ映像とマイク音声を、USB（ADB）経由でUbuntuの仮想デバイス（Webcam & Microphone）として認識させるプロジェクトです。
+[日本語版 (Japanese)](README.ja.md)
 
-## プロジェクト構成
+UsbCAM is a project that allows you to use your Android device's camera and microphone as a virtual webcam and microphone in Ubuntu via USB (ADB).
 
-1.  **Android App**:
-    - **Video**: CameraXを使用してMJPEGストリームをTCP 8080で配信。
-    - **Audio**: AudioRecordを使用して生音声（PCM 16bit, 44.1kHz, Mono）をTCP 8081で配信。
-2.  **Ubuntu Integration**: ADBポート転送、`v4l2loopback`、PulseAudioを使用して、AndroidのストリームをPCの仮想デバイスに変換します。
+## Project Architecture
+
+1. **Android App**:
+   - **Video**: Uses CameraX to stream MJPEG over TCP port 8080.
+   - **Audio**: Uses AudioRecord to stream raw audio (PCM 16-bit, 44.1kHz, Mono) over TCP port 8081.
+2. **Ubuntu Integration**: Uses ADB port forwarding, `v4l2loopback`, and PulseAudio/PipeWire to convert Android streams into system virtual devices on PC.
 
 ---
 
-## 使い方
+## Usage Guide
 
-### 1. Androidアプリの準備
-1. Android Studioでプロジェクトをビルドし、デバイスにインストールします。
-2. アプリを起動し、カメラおよびマイクの権限を許可します。
-3. 「Start Server」をタップして配信を開始します。
+### 1. Android App Setup
+1. Build and install the app on your Android device using Android Studio.
+2. Launch the app and grant Camera and Microphone permissions.
+3. Tap **"Start Server"** to begin streaming.
 
-### 2. Ubuntu側のセットアップ
+### 2. Ubuntu PC Setup
 
-#### 自動セットアップ（推奨）
-プロジェクトに含まれる `setup_webcam.sh` を実行することで、ビデオ・オーディオの両方の仮想デバイス作成とポート転送を一括で行えます。
+#### Automatic Setup (Recommended)
+Run `setup_webcam.sh` included in the project to automatically set up video/audio virtual devices and configure ADB port forwarding.
 ```bash
 ./setup_webcam.sh
 ```
 
-#### 映像の開始
-別のターミナルで実行してください：
+#### Starting Video Stream
+Run this command in a separate terminal:
 ```bash
 ffmpeg -i http://localhost:8080 -pix_fmt yuv420p -f v4l2 /dev/video10
 ```
 
-#### 音声の開始
-別のターミナルで実行してください：
+#### Starting Audio Stream
+Run this command in another terminal:
 ```bash
 ffmpeg -f s16le -ar 44100 -ac 1 -i tcp://localhost:8081 -f pulse AndroidMic
 ```
 
-### 3. 動作確認
-- **映像**: カメラ設定から「AndroidCam」を選択。
-- **音声**: サウンド設定の「入力デバイス」から「AndroidMicSource」を選択。
+### 3. Verification
+- **Video**: Select **"AndroidCam"** in your camera/video settings.
+- **Audio**: Select **"AndroidMicSource"** under Input Devices in Sound settings.
 
 ---
 
-## ライセンス
+## License
 MIT

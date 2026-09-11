@@ -22,7 +22,7 @@
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintEnd_toStartOf="@+id/cameraSwitch"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Rotate Video" />
+        android:contentDescription="@string/content_description_rotate_video" />
 
     <ImageButton
         android:id="@+id/cameraSwitch"
@@ -34,15 +34,15 @@
         android:src="@android:drawable/ic_menu_rotate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Switch Camera" />
+        android:contentDescription="@string/content_description_switch_camera" />
 
     <ToggleButton
         android:id="@+id/serverToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:textOff="Start Server"
-        android:textOn="Stop Server"
+        android:textOff="@string/start_server"
+        android:textOn="@string/stop_server"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Server: Stopped"
+        android:text="@string/status_stopped"
         app:layout_constraintBottom_toTopOf="@+id/zoomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
